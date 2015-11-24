@@ -1,1 +1,1 @@
-# mindr
+# Rmindr
