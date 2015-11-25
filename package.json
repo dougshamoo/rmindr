@@ -1,0 +1,24 @@
+{
+  "name": "rmindr",
+  "version": "0.0.0",
+  "description": "Reminders for everyone every way",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougshamoo/rmindr.git"
+  },
+  "author": "Doug Shamoo <doug.shamoo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dougshamoo/rmindr/issues"
+  },
+  "homepage": "https://github.com/dougshamoo/rmindr#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  }
+}
