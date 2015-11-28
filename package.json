@@ -24,6 +24,7 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "kue": "^0.10.4",
     "nodemailer": "^1.10.0"
   },
   "devDependencies": {
