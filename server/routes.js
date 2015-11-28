@@ -8,19 +8,25 @@ var redis = require('kue/lib/redis');
 // make sure we use the Heroku Redis To Go URL
 // (put REDISTOGO_URL=redis://localhost:6379 in .env for local testing)
 
+// if (process.env.REDISTOGO_URL) {
+//   kue.redis.createClient = function() {
+//     var redisUrl = url.parse(process.env.REDISTOGO_URL);
+//     var client = redis.createClient(redisUrl.port, redisUrl.hostname);
+//     if (redisUrl.auth) {
+//       client.auth(redisUrl.auth.split(':')[1]);
+//     }
+
+//     return client;
+//   };
+// }
+var queue;
 if (process.env.REDISTOGO_URL) {
-  kue.redis.createClient = function() {
-    var redisUrl = url.parse(process.env.REDISTOGO_URL);
-    var client = redis.createClient(redisUrl.port, redisUrl.hostname);
-    if (redisUrl.auth) {
-      client.auth(redisUrl.auth.split(':')[1]);
-    }
-
-    return client;
-  };
+  queue = kue.createQueue({
+    redis: 'process.env.REDISTOGO_URL',
+  });
+} else {
+  queue = kue.createQueue();
 }
-
-var queue = kue.createQueue();
 
 queue.on('job enqueue', function(id, type) {
   console.log('Job %s got queued of type %s', id, type);
