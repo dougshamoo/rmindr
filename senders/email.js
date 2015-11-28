@@ -7,7 +7,7 @@ if (process.env.GMAIL_USER) {
   gmailUser = process.env.GMAIL_USER;
   gmailPass = process.env.GMAIL_PASS;
 } else {
-  var config = require('../config');
+  var config = require('./config');
   gmailUser = config.gmail.user;
   gmailPass = config.gmail.pass;
 }
