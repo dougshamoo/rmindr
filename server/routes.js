@@ -2,6 +2,7 @@ var app = require('./server');
 var sendEmail = require('../senders/email');
 
 var kue = require('kue');
+var ui = require('kue-ui');
 var url = require('url');
 var redis = require('kue/lib/redis');
 
@@ -21,16 +22,28 @@ if (process.env.REDISTOGO_URL) {
 var queue = kue.createQueue(kueOptions);
 
 queue.on('job enqueue', function(id, type) {
-  console.log('Job %s got queued of type %s', id, type);
+  console.log('routes.js: Job %s got queued of type %s', id, type);
 }).on('job complete', function(id, result) {
   kue.Job.get(id, function(err, job) {
     if (err) return;
     job.remove(function(err) {
       if (err) throw err;
-      console.log('removed completed job #%d', job.id);
+      console.log('routes.js: removed completed job #%d', job.id);
     });
   });
 });
+
+ui.setup({
+  apiURL: '/api', // IMPORTANT: specify the api url
+  baseURL: '/kue', // IMPORTANT: specify the base url
+  updateInterval: 5000, // Optional: Fetches new data every 5000 ms
+});
+
+// Mount kue JSON api
+app.use('/api', kue.app);
+
+// Mount UI
+app.use('/kue', ui.app);
 
 app.post('/email', function(req, res) {
   // console.log('REQ.BODY:', req.body);
