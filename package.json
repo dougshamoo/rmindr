@@ -25,6 +25,7 @@
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "kue": "^0.10.4",
+    "kue-ui": "^0.1.0",
     "moment-timezone": "^0.4.1",
     "nodemailer": "^1.10.0"
   },
