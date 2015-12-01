@@ -20,13 +20,13 @@ if (process.env.REDISTOGO_URL) {
 var queue = kue.createQueue(kueOptions);
 
 queue.on('job enqueue', function(id, type) {
-  console.log('Job %s got queued of type %s', id, type);
+  console.log('clock.js: Job %s got queued of type %s', id, type);
 }).on('job complete', function(id, result) {
   kue.Job.get(id, function(err, job) {
     if (err) return;
     job.remove(function(err) {
       if (err) throw err;
-      console.log('removed completed job #%d', job.id);
+      console.log('clock.js: removed completed job #%d', job.id);
     });
   });
 });
@@ -36,13 +36,3 @@ queue.process('email', function(job, done) {
   console.log('Processing job #', job.id, ':\n', job.data);
   sendEmail(job.data.to, job.data.message, done);
 });
-
-// function email(address, message, done) {
-//   // TODO: address checking maybe
-//   if (2 > 3) {
-//     return done(new Error('some error'));
-//   }
-
-//   // TODO: email send stuff...
-//   done();
-// }
