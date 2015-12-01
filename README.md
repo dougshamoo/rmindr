@@ -2,7 +2,7 @@
 
 > *"Reminders for everyone every way"*
 
-## Mobile and Desktop Web App
+## Web App
 #### [rmindr.herokuapp.com](http://rmindr.herokuapp.com)
 
 ## Table of Contents
@@ -26,7 +26,7 @@
 - kue 0.10.4
 - moment-timezone 0.4.1
 - nodemailer 1.10.0
-- Redis
+- Redis 3.0.5
 
 ## Development
 
