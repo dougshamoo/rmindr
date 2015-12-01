@@ -36,13 +36,3 @@ queue.process('email', function(job, done) {
   console.log('Processing job #', job.id, ':\n', job.data);
   sendEmail(job.data.to, job.data.message, done);
 });
-
-// function email(address, message, done) {
-//   // TODO: address checking maybe
-//   if (2 > 3) {
-//     return done(new Error('some error'));
-//   }
-
-//   // TODO: email send stuff...
-//   done();
-// }
