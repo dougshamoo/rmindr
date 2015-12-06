@@ -1,5 +1,6 @@
 var app = require('./server');
 var sendEmail = require('../senders/email');
+var sendSms = require('../senders/sms');
 
 var moment = require('moment-timezone');
 var kue = require('kue');
@@ -82,4 +83,19 @@ app.post('/email', function(req, res) {
   // })
 
   res.status(200).end('Awesome. Check your email!');
+});
+
+// temporary test route for sms
+app.get('/sms', function(req, res) {
+  // TODO: get data from req
+  var number = 'TARGET_TELEPHONE_NUMBER'; // replace with valid number for testing
+  var message = 'This is a rmindr that your boyfriend loves you.';
+  sendSms(number, message, function(err, response) {
+    if (err) {
+      console.log(err);
+      res.status(400).end('Invalid phone number');
+    }
+    console.log(response);
+    res.status(200).end('Awesome! Check your phone');
+  });
 });

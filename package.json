@@ -27,6 +27,7 @@
     "kue": "^0.10.4",
     "kue-ui": "^0.1.0",
     "moment-timezone": "^0.4.1",
+    "mtextbelt": "^0.2.0",
     "nodemailer": "^1.10.0"
   },
   "devDependencies": {
