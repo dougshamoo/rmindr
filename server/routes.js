@@ -38,25 +38,18 @@ app.use('/api', kue.app);
 // Mount UI
 app.use('/kue', ui.app);
 
-//============================================================================//
 //
+//=================================ROUTES====================================//
 
 app.post('/email', function(req, res) {
-  console.log('REQ.BODY:', req.body);
+  // console.log('REQ.BODY:', req.body);
   var email = req.body.email;
   var message = req.body.message;
   var datetimeLocal = req.body.datetime;
   var timezone = req.body.timezone;
 
-  // Convert local datetime + timezone from server into UTC time
-  var datetimeUTC = moment.tz(datetimeLocal, timezone)
-    .clone()
-    .tz('UTC')
-    .format('x');
-
-  // Calculate the desired delay in milliseconds
-  var jobDelay = datetimeUTC - Date.now();
-  console.log(jobDelay);
+  var datetimeUTC = convertLocalToUTC(datetimeLocal, timezone);
+  var jobDelay = getJobDelayFromLocalTime(datetimeLocal, timezone);
 
   // Create job
   var job = queue.create('email', {
@@ -85,11 +78,12 @@ app.post('/email', function(req, res) {
   res.status(200).end('Awesome. Check your email!');
 });
 
+
 // temporary test route for sms
 app.get('/sms', function(req, res) {
   // TODO: get data from req
   var number = 'TARGET_TELEPHONE_NUMBER'; // replace with valid number for testing
-  var message = 'This is a rmindr that your boyfriend loves you.';
+  var message = 'MESSAGE_BODY'; // replace with message for testing
   sendSms(number, message, function(err, response) {
     if (err) {
       console.log(err);
@@ -99,3 +93,23 @@ app.get('/sms', function(req, res) {
     res.status(200).end('Awesome! Check your phone');
   });
 });
+
+//
+//================================HELPERS===================================//
+
+function convertLocalToUTC(datetimeLocal, timezone) {
+  return moment.tz(datetimeLocal, timezone)
+    .clone()
+    .tz('UTC')
+    .format('x');
+}
+
+function getJobDelayFromLocalTime(datetimeLocal, timezone) {
+  // Convert local datetime + timezone from server into UTC time
+  var datetimeUTC = convertLocalToUTC(datetimeLocal, timezone);
+
+  // Calculate the desired delay in milliseconds
+  var jobDelay = datetimeUTC - Date.now();
+
+  return jobDelay;
+}
