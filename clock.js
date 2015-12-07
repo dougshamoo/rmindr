@@ -2,7 +2,9 @@ var kue = require('kue');
 var url = require('url');
 var redis = require('kue/lib/redis');
 
+// Senders
 var sendEmail = require('./senders/email');
+var sendSms = require('./senders/sms');
 
 var kueOptions = {};
 
@@ -31,8 +33,14 @@ queue.on('job enqueue', function(id, type) {
   });
 });
 
-// TODO: process only when given datetime is reached
+// Send email when job with type 'email' is ready
 queue.process('email', function(job, done) {
   console.log('Processing job #', job.id, ':\n', job.data);
   sendEmail(job.data.to, job.data.message, done);
+});
+
+// Send SMS when job with type 'sms' is ready
+queue.process('sms', function(job, done) {
+  console.log('Processing job #', job.id, ':\n', job.data);
+  sendSms(job.data.phone, job.data.message, done);
 });

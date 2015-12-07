@@ -78,6 +78,26 @@ app.post('/email', function(req, res) {
   res.status(200).end('Awesome. Check your email!');
 });
 
+app.post('/sms', function(req, res) {
+  var phone = req.body.phone;
+  var message = req.body.message;
+  var datetimeLocal = req.body.datetime;
+  var timezone = req.body.timezone;
+
+  var datetimeUTC = convertLocalToUTC(datetimeLocal, timezone);
+  var jobDelay = getJobDelayFromLocalTime(datetimeLocal, timezone);
+
+  // Create job
+  var job = queue.create('sms', {
+    phone: phone,
+    message: message,
+    datetime: datetimeUTC,
+  }).delay(jobDelay)
+  .save(function(err) {
+    if (err) console.log(err);
+    res.status(200).end('Awesome. Check your phone!');
+  });
+});
 
 // temporary test route for sms
 app.get('/sms', function(req, res) {
