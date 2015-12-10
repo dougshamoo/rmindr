@@ -1,9 +1,9 @@
 var app = require('./server');
 
-var moment = require('moment-timezone');
 var kue = require('kue');
 var ui = require('kue-ui');
 var redis = require('kue/lib/redis');
+var helpers = require('./helpers.js');
 
 var kueOptions = require('./kueConfig.js');
 var queue = kue.createQueue(kueOptions);
@@ -33,8 +33,8 @@ app.post('/email', function(req, res) {
   var datetimeLocal = req.body.datetime;
   var timezone = req.body.timezone;
 
-  var datetimeUTC = convertLocalToUTC(datetimeLocal, timezone);
-  var jobDelay = getJobDelayFromLocalTime(datetimeLocal, timezone);
+  var datetimeUTC = helpers.convertLocalToUTC(datetimeLocal, timezone);
+  var jobDelay = helpers.getJobDelayFromLocalTime(datetimeLocal, timezone);
 
   // Create job
   var job = queue.create('email', {
@@ -69,8 +69,8 @@ app.post('/sms', function(req, res) {
   var datetimeLocal = req.body.datetime;
   var timezone = req.body.timezone;
 
-  var datetimeUTC = convertLocalToUTC(datetimeLocal, timezone);
-  var jobDelay = getJobDelayFromLocalTime(datetimeLocal, timezone);
+  var datetimeUTC = helpers.convertLocalToUTC(datetimeLocal, timezone);
+  var jobDelay = helpers.getJobDelayFromLocalTime(datetimeLocal, timezone);
 
   // Create job
   var job = queue.create('sms', {
