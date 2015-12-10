@@ -1,26 +1,11 @@
 var app = require('./server');
-var sendEmail = require('../senders/email');
-var sendSms = require('../senders/sms');
 
 var moment = require('moment-timezone');
 var kue = require('kue');
 var ui = require('kue-ui');
-var url = require('url');
 var redis = require('kue/lib/redis');
 
-var kueOptions = {};
-
-if (process.env.REDISTOGO_URL) {
-  var redisUrl = url.parse(process.env.REDISTOGO_URL);
-  kueOptions.redis = {
-    port: parseInt(redisUrl.port),
-    host: redisUrl.hostname,
-  };
-  if (redisUrl.auth) {
-    kueOptions.redis.auth = redisUrl.auth.split(':')[1];
-  }
-}
-
+var kueOptions = require('./kueConfig.js');
 var queue = kue.createQueue(kueOptions);
 
 //
@@ -96,21 +81,6 @@ app.post('/sms', function(req, res) {
   .save(function(err) {
     if (err) console.log(err);
     res.status(200).end('Awesome. Check your phone!');
-  });
-});
-
-// temporary test route for sms
-app.get('/sms', function(req, res) {
-  // TODO: get data from req
-  var number = 'TARGET_TELEPHONE_NUMBER'; // replace with valid number for testing
-  var message = 'MESSAGE_BODY'; // replace with message for testing
-  sendSms(number, message, function(err, response) {
-    if (err) {
-      console.log(err);
-      res.status(400).end('Invalid phone number');
-    }
-    console.log(response);
-    res.status(200).end('Awesome! Check your phone');
   });
 });
 
