@@ -12,11 +12,13 @@ function KueOptions() {
       this.redis.auth = redisUrl.auth.split(':')[1];
     }
   }
+
   // Redis Heroku add-on on Heroku
   else if (process.env.REDIS_URL) {
     this.redis = process.env.REDIS_URL;
   }
+
   // Else an empty config obj, will cause kue to use local defaults
-};
+}
 
 module.exports = new KueOptions();
