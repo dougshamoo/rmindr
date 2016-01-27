@@ -1,0 +1,16 @@
+body {
+  background: linear-gradient(#DAE2F8, #D6A4A4);
+  font-family: 'Cabin', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 25px;
+}
+
+h1 {
+ font-family: 'Lobster', Georgia, Times, serif;
+ font-size: 70px;
+ line-height: 100px;
+}
+
+#intro {
+  max-width: 300px;
+}
