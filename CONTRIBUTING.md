@@ -3,7 +3,7 @@
 ## General Workflow
 
 1. Fork the repo
-1. Cut a namespaced feature branch from master
+1. Cut a namespaced feature branch from dev
   - bug/...
   - feat/...
   - test/...
@@ -21,7 +21,7 @@
   - (db) ...
   - (deploy) ...
 1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-   directly to staging. Include a description of your changes.
+   directly to dev. Include a description of your changes.
 1. Your pull request will be reviewed by another maintainer. The point of code
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
@@ -40,7 +40,7 @@ Use github’s interface to make a fork of the repo, then add that repo as an up
 git remote add upstream https://github.com/starvingartists/starvingartists.git
 ```
 
-### Cut a namespaced feature branch from staging
+### Cut a namespaced feature branch from dev
 
 Your branch should follow this naming convention:
   - bug/...
@@ -91,11 +91,11 @@ changes.
 
 Once you are done making changes, you can begin the process of getting
 your code merged into the main repo. Step 1 is to rebase upstream
-changes to the staging branch into yours by running this command
+changes to the dev branch into yours by running this command
 from your branch:
 
 ```
-git pull --rebase upstream staging
+git pull --rebase upstream dev
 ```
 
 This will start the rebase process. You must commit all of your changes
@@ -127,7 +127,7 @@ you get here again and nothing is broken and all the tests pass.
 
 ### Make a pull request
 
-Make a clear pull request from your fork and branch to the upstream staging
+Make a clear pull request from your fork and branch to the upstream dev
 branch, detailing exactly what changes you made and what feature this
 should add. The clearer your pull request is the faster you can get
 your changes incorporated into this repo. If your PR is associated with a
@@ -170,11 +170,11 @@ Thanks for contributing!
 
 This is just to help you organize your process
 
-- [ ] Did I cut my work branch off of staging (don't cut new branches from existing feature brances)?
+- [ ] Did I cut my work branch off of dev (don't cut new branches from existing feature brances)?
 - [ ] Did I follow the correct naming convention for my branch?
 - [ ] Is my branch focused on a single main change?
  - [ ] Do all of my changes directly relate to this change?
-- [ ] Did I rebase the upstream staging branch after I finished all my
+- [ ] Did I rebase the upstream dev branch after I finished all my
   work?
 - [ ] Did I write a clear pull request message detailing what changes I made?
 - [ ] Did I get a code review?

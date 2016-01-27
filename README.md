@@ -40,7 +40,7 @@ npm install
 
 ### Deployment
 
-This project is deployed on Heroku, using RedisToGo and kue.js to implement a priority job queue.
+This project is deployed on Heroku, using Heroku Redis and kue.js to implement a priority job queue.
 
 ### Roadmap
 
