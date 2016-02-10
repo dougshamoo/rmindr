@@ -37,7 +37,7 @@
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/starvingartists/starvingartists.git
+git remote add upstream https://github.com/dougshamoo/rmindr.git
 ```
 
 ### Cut a namespaced feature branch from dev
@@ -59,7 +59,7 @@ These commands will help you do this:
 git checkout -b `namespace/your-branch-name`
 ```
 
-### Make commits to your feature branch. 
+### Make commits to your feature branch.
 
 Prefix each commit like so
   - (feat) Add a new feature
@@ -185,7 +185,7 @@ no problem getting your changes merged in.
 
 
 <!-- Links -->
-[pull request]: https://github.com/dougshamoo/Rmindr/pulls
+[pull request]: https://github.com/dougshamoo/rmindr/pulls
 [DRY]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 [boy scout rule]: http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule
 [Squash]: http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html
